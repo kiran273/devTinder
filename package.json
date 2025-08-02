@@ -12,7 +12,9 @@
   "license": "ISC",
   "description": "tinder for devs",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.1.0",
-    "mongoose": "^8.16.5"
+    "mongoose": "^8.16.5",
+    "validator": "^13.15.15"
   }
 }

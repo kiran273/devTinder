@@ -23,8 +23,17 @@ authRouter.post("/signup", async (req, res) => {
     });
 
     //returns a promise. Saving data in database
-    await user.save();
-    res.send("User Added successfully");
+    const savedUser = await user.save();
+     const token = await savedUser.getJWT();
+
+      //Add the token to cookie and send the response back to the user
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
+      res.send(user);
+
+    
+    res.json({ message: "User Added successfully", data: savedUser });
   } catch (err) {
     res.status(400).send("Error :" + err.message);
   }
@@ -50,12 +59,12 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      res.send("Login Successful!!!");
+      res.send(user);
     } else {
       throw new Error("Password is not correct");
     }
   } catch (err) {
-    res.status(400).send("Error :" + err.message);
+    res.status(400).send("Error : " + err.message);
   }
 });
 
@@ -64,6 +73,6 @@ authRouter.post("/logout", async (req, res) => {
     expires: new Date(Date.now()),
   });
   res.send("Logout Successful!!");
-});
+}); 
 
 module.exports = authRouter;

@@ -20,7 +20,7 @@ const validateEditProfileData = (req) => {
     "photoUrl",
     "gender",
     "age",
-    "about", 
+    "about",
     "skills",
   ];
 
@@ -33,5 +33,5 @@ const validateEditProfileData = (req) => {
 
 module.exports = {
   validateSignUpData,
-  validateEditProfileData
+  validateEditProfileData,
 };
